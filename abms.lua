@@ -82,13 +82,32 @@ function fire_realism.get_area(first_pos, last_pos, list)
 end
 
 function fire_realism.generate_deco(pos)
+  --convert node
   local node = minetest.registered_nodes[minetest.get_node(pos).name]
   local newnode = node.ash_type
   minetest.swap_node(pos,{name=newnode})
+  
+  --generate missing decorations. This must be done first otherwise it won't look right.
   local p1 = {x=pos.x+2,y=pos.y+2,z=pos.z+2}
   local p2 = {x=pos.x-2,y=pos.y-2,z=pos.z-2}
+  
+  local top_nodes_rainforest = minetest.find_nodes_in_area_under_air(p1,p2,{"default:dirt_with_rainforest_litter"})
+  for _, _pos in ipairs(top_nodes_rainforest) do
+    if math.random(1,(5*1*5)) == 1 then
+      default.grow_new_jungle_tree(_pos)
+    end
+  end
+  
+  --generate decoration
   local vm = minetest.get_voxel_manip()
   local emin, emax = vm:read_from_map(p1,p2)
   minetest.generate_decorations(vm,p1,p2)
   vm:write_to_map()
+  
+  --remove hot ash
+  local hot_ash_nodes = minetest.find_nodes_in_area(vector.new(p1.x+1,p1.y+1,p1.z+1),vector.new(p2.x-1,p2.y-1,p2.z-1),{"group:hot_ash"})
+  for _, _pos in ipairs(hot_ash_nodes) do
+    local hot_ash_node = minetest.registered_nodes[minetest.get_node(pos).name]
+    minetest.swap_node(_pos,{name="fire_realism:ash_and_"..fire_realism.split_string(hot_ash_node.ash_type,":")[2]})
+  end
 end

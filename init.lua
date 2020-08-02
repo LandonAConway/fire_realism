@@ -27,6 +27,7 @@ function fire_realism.split_string (inputstr, sep)
   return t
 end
 
+dofile(minetest.get_modpath("fire_realism") .. "/charcoal.lua")
 dofile(minetest.get_modpath("fire_realism") .. "/nodes.lua")
 dofile(minetest.get_modpath("fire_realism") .. "/fire_extinguisher.lua")
 dofile(minetest.get_modpath("fire_realism") .. "/abms.lua")

@@ -1,4 +1,4 @@
-minetest.register_craftitem("fire_realism:fire_extinguisher", {
+minetest.register_tool("fire_realism:fire_extinguisher", {
   description = "Fire Extinguisher",
   inventory_image = "fire_realism_fire_extinguisher.png",
   
@@ -21,6 +21,12 @@ minetest.register_craftitem("fire_realism:fire_extinguisher", {
         minetest.swap_node(_pos,{name="air"})
       end
     end
+    
+    if not core.setting_getbool("creative_mode") then
+      local usage = 6553.5
+      itemstack:add_wear(usage)
+    end
+    return itemstack
   end
 })
 
