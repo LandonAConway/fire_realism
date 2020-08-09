@@ -38,7 +38,7 @@ for i,v in ipairs(fire_realism.soil_nodes()) do
       tiles = {"fire_realism_ash.png", underlay,
         {name = underlay.."^fire_realism_ash_side.png",
           tileable_vertical = false}},
-      groups = {crumbly = 3, soil = 1, ash = 1, cooled_ash = 1},
+      groups = {crumbly = 3, soil = 1, ash = 1, cooled_ash = 1, not_in_creative_inventory = 1},
       ash_type = v,
       drop = drops,
       sounds = default.node_sound_dirt_defaults()
@@ -51,7 +51,7 @@ for i,v in ipairs(fire_realism.soil_nodes()) do
           tileable_vertical = false}},
       paramtype = "light",
       light_source = 4,
-      groups = {crumbly = 3, soil = 1, ash = 1, hot_ash = 1, igniter = 1},
+      groups = {crumbly = 3, soil = 1, ash = 1, hot_ash = 1, igniter = 1, not_in_creative_inventory = 1},
       ash_type = v,
       drop = drops,
       sounds = default.node_sound_dirt_defaults()
